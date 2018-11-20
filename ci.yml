@@ -1,0 +1,32 @@
+---
+- hosts: instance-10
+  tasks:
+  - name: Set-up git
+    yum:
+      name: git
+      state: latest
+    become: true
+  - name: Install Java
+    yum:
+      name: java
+      state: latest
+    become: true
+  - name: Enable Jenkins repository
+    get_url: 
+      url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+      dest: /etc/yum.repos.d/jenkins.repo
+    become: true
+  - name: Add repo to system
+    shell: /usr/bin/rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    become: true
+  - name: Ensure Jenkins is running
+    service:
+      name: jenkins
+      state: started
+    become: true
+  handlers:
+    - name: Restart Jenkins
+      service:
+        name: jenkins
+        state: restarted
+...

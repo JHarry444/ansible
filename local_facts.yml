@@ -1,0 +1,6 @@
+---
+- hosts: bob@ans-1
+  tasks:
+  - name: Echo bob
+    shell: "touch ~/ {{ ansible_local['pref']['general']['bob'] }}"
+...

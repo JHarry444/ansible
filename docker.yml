@@ -1,0 +1,12 @@
+---
+- hosts: docker_hosts
+  tasks:
+  - name: install docker
+    package:
+      name: docker
+      state: latest
+    become: true
+  - name: jenkins image
+    docker_image:
+      name: jenkins
+...

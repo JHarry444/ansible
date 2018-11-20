@@ -1,0 +1,6 @@
+---
+- hosts: ans-1, ans-2
+- tasks:
+  - name: ping
+    ping:
+...
