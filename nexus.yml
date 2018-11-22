@@ -1,0 +1,7 @@
+---
+- hosts: nexus_hosts
+  become: yes
+  tasks:
+  - include_role: 
+      name: nexus
+...
