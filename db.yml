@@ -2,24 +2,20 @@
 - hosts: db_hosts
   become: yes
   tasks:
-    - name: Install Docker
-      package:
-        name: docker
-        state: latest
-    - name: Start Docker daemon
-      service:
-        name: docker
-        state: started
-    - name: Pull Docker image
-      docker_container: 
-        name: mysql1
-        image: mysql/mysql-server
-        state: started
-        pull: no
-    - name: Fetch temp password
-      shell: "docker logs mysql1 2>&1 | grep GENERATED\ ROOT\ PASSWORD | cut -d: -f2"
-      register: temp_password
-    - name: Log in to mysql shell.
-      shell: docker exec -it mysql1 mysql -uroot -p{{ temp_password }}
+  - name: Install MariaDB
+    package:
+      name: mariadb-server
+      state: latest
+  - name: Start MariaDB
+    service:
+      name: mariadb
+      state: started 
+      enabled: yes
+  - name: Set MariaDB root password for the first time (root@localhost)
+    mysql_user:
+      name: root
+      password: "password"
+#      host: localhost
+      state: present
 ...
         

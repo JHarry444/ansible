@@ -1,5 +1,5 @@
 ---
-- hosts: instance-10
+- hosts: 10.154.0.8
   tasks:
   - name: Set-up git
     yum: 
